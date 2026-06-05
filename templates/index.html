@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whaddabeat 🎵</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        h1 {
+            color: #1DB954;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 12px;
+        }
+        button {
+            background-color: #1DB954;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #17a349;
+        }
+        .result {
+            margin-top: 30px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .result p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎵 Whaddabeat</h1>
+    <p>Search any song to get its info!</p>
+
+    <form method="POST">
+        <input type="text" name="song_name" placeholder="Enter a song name..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if track %}
+    <div class="result">
+        <h2>{{ track['name'] }}</h2>
+        <p>🎤 Artist: {{ track['artists'][0]['name'] }}</p>
+        <p>💿 Album: {{ track['album']['name'] }}</p>
+        <p>📅 Release Date: {{ track['album']['release_date'] }}</p>
+        <p>🔥 Popularity: {{ track.get('popularity', 'N/A') }}/100</p>
+        {% if track.get('preview_url') %}
+        <p>🎧 Preview:</p>
+        <audio controls>
+            <source src="{{ track['preview_url'] }}" type="audio/mpeg">
+        </audio>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</body>
+</html>
